@@ -4,12 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.net.http.HttpClient;
-
 @Controller
 public class CircleCIController {
-    HttpClient httpClient;
-
 
     @GetMapping("/")
     public String hello() {
