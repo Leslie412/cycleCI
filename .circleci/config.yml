@@ -1,11 +1,16 @@
 version: 2.1
 jobs:
-  build:
+  buildProject:
     docker:
       - image: circleci/openjdk:11-jdk # the primary container, where your job's commands are run
     steps:
       - checkout # check out the code in the project directory
-      - run: gradle test
+      - run:
+          name: first steps
+          command: |
+            gradle test
+            pwd
+            ls -al
   oscheck:
     docker:
       - image: circleci/openjdk:11-jdk
@@ -15,3 +20,12 @@ jobs:
           command: |
             pwd
             ls -al
+
+workflows:
+  version: 2
+  Test_workflow:
+    jobs:
+      - buildProject
+      - oscchek:
+          requires:
+            - buildProject
