@@ -26,6 +26,6 @@ workflows:
   Test_workflow:
     jobs:
       - buildProject
-      - oscchek:
+      - oscheck:
           requires:
             - buildProject
