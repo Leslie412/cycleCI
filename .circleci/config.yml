@@ -8,9 +8,18 @@ jobs:
       - run:
           name: first steps
           command: |
-            gradle test
+            gradle build
             pwd
             ls -al
+  deploy:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    steps:
+      - checkout
+      - run:
+          name: deploy master to heroku
+          command: |
+            git push https://heroku:e7fbfedf-75a9-4041-af0d-df9613ad31fd@git.heroku.com/circlecianswer.git master
   oscheck:
     docker:
       - image: circleci/openjdk:11-jdk
@@ -23,9 +32,12 @@ jobs:
 
 workflows:
   version: 2
-  Test_workflow:
+  build-deploy:
     jobs:
       - buildProject
-      - oscheck:
+      - deploy:
           requires:
             - buildProject
+          filters:
+            branches:
+              only: master
