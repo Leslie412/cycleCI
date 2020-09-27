@@ -1,8 +1,17 @@
 version: 2.1
 jobs:
   build:
-    docker: 
+    docker:
       - image: circleci/openjdk:11-jdk # the primary container, where your job's commands are run
     steps:
       - checkout # check out the code in the project directory
       - run: gradle test
+  oscheck:
+    docker:
+      -image: circleci/openjdk:11-jdk
+    steps:
+      - run:
+        name: just a test
+        command: |
+          pwd
+          ls -al
